@@ -56,12 +56,3 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
-
-.card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 3px 0.5px var(--secondary-color);
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid var(--secondary-color);
-}

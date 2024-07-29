@@ -107,11 +107,11 @@ const notesData = [
 ];
 
 class Notes {
-  getAll() {
+  static getAll() {
     return notesData;
   }
 
-  searchNotes(query) {
+  static searchNotes(query) {
     return notesData.filter(
       (note) =>
         note.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -119,7 +119,7 @@ class Notes {
     );
   }
 
-  getNoteById(id) {
+  static getNoteById(id) {
     return notesData.find((note) => note.id === id);
   }
 }

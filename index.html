@@ -30,13 +30,27 @@
 
     <main class="container">
       <div class="card-list">
-        <article class="card">
-          <section class="header-note">
-            <h3>Title</h3>
-            <span>Date</span>
-          </section>
-          <section class="body-note">Body Card</section>
-        </article>
+        <template id="noteItem">
+          <style>
+            .card {
+              background: white;
+              border-radius: 10px;
+              box-shadow: 0 0 4px 0.8px var(--secondary-color);
+              padding: 10px;
+              margin: 10px;
+            }
+          </style>
+
+          <article class="card">
+            <section class="header-note">
+              <slot name="title"></slot>
+              <span name="createdAt"></span>
+            </section>
+            <section class="body-note">
+              <slot name="bodyNote"></slot>
+            </section>
+          </article>
+        </template>
       </div>
     </main>
 
