@@ -122,6 +122,20 @@ class Notes {
   static getNoteById(id) {
     return notesData.find((note) => note.id === id);
   }
+
+  static addNewNote({ title, body }) {
+    const newNote = {
+      id: `notes-${Math.random().toString(36).substr(2, 10)}`,
+      title,
+      body,
+      createdAt: new Date().toISOString(),
+      archived: false,
+    };
+
+    notesData.push(newNote);
+    console.log("New note added:", newNote);
+    return newNote;
+  }
 }
 
 export default Notes;
