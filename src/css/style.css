@@ -44,9 +44,6 @@ h1 > span {
   margin: 0 auto;
   padding: 15px 20px;
 }
-nav {
-  padding: 15px 20px;
-}
 
 .card-list {
   display: grid;
@@ -107,7 +104,6 @@ button {
 
 .hidden {
   opacity: 0;
-  /* display: none; */
 }
 
 .w-26 {

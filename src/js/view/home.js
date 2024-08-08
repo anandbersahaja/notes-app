@@ -49,9 +49,10 @@ const app = () => {
     notes.forEach((note) => createNoteItem(note));
   };
 
-  setInterval(() => {
-    renderNotes();
-  }, 1000);
+  renderNotes();
+  // setInterval(() => {
+  //   renderNotes();
+  // }, 1000);
 };
 
 app();
