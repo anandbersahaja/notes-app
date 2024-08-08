@@ -1,13 +1,13 @@
 import Notes from "../data/notes.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log(Notes.getAll());
   const modal = document.getElementById("modal");
   const openModalBtn = document.getElementById("openModalBtn");
   const closeModalBtn = document.getElementById("closeModalBtn");
   const formNote = document.getElementById("formNote");
 
   openModalBtn.addEventListener("click", () => {
+    resetForm();
     modal.classList.remove("hidden");
   });
 
@@ -26,4 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     formNote.reset();
     modal.classList.add("hidden");
   });
+
+  const resetForm = () => {
+    formNote.reset();
+  };
 });
