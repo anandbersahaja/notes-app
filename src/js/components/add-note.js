@@ -1,16 +1,12 @@
 class AddNote extends HTMLElement {
-  _width = 50;
-  _height = 50;
+  _diameter = 50;
 
-  static get observedAttributes() {
-    return ["diameter", "color"];
-  }
+  static observedAttributes = ["diameter"];
   constructor() {
     super();
 
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._style = document.createElement("style");
-    this.render();
   }
 
   _updatedStyle() {
@@ -19,8 +15,8 @@ class AddNote extends HTMLElement {
       border: none;
     }
     .add-btn {
-      width: ${this._width}px;
-      height: ${this._height}px;
+      width: ${this._diameter}px;
+      height: ${this._diameter}px;
       display: flex;
       position: fixed;
       bottom: 25px;
@@ -58,29 +54,16 @@ class AddNote extends HTMLElement {
     }`;
   }
 
-  set width(value) {
+  set diameter(value) {
     const newValue = Number(value);
     if (isNaN(newValue)) {
-      console.error("Width must be a number");
+      console.error("Diameter must be a number");
       return;
     }
-    this._width = value;
+    this._diameter = value;
   }
-  get width() {
-    return this._width;
-  }
-
-  set height(value) {
-    const newValue = Number(value);
-    if (isNaN(newValue)) {
-      console.error("Height must be a number");
-      return;
-    }
-    this._height = value;
-  }
-
-  get height() {
-    return this._height;
+  get diameter() {
+    return this._diameter;
   }
 
   _emptyContent() {
@@ -88,6 +71,7 @@ class AddNote extends HTMLElement {
   }
   connectedCallback() {
     this._shadowRoot.appendChild(this._style);
+    this.render();
   }
 
   render() {
@@ -116,14 +100,7 @@ class AddNote extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      switch (name) {
-        case "width":
-          this.width = newValue;
-          break;
-        case "height":
-          this.height = newValue;
-          break;
-      }
+      this.diameter = newValue;
       this.render();
     }
   }

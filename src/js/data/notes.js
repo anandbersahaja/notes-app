@@ -86,7 +86,7 @@ const notesData = [
   {
     id: "notes-qwerty-8765-4321",
     title: "Financial Goals",
-    body: "1. Create a monthly budget\n2. Save 20% of income\n3. Invest in a retirement fund",
+    body: "1. Create a monthly budget\n2. Save 20% of income\n3. Invest in a retirement fund.",
     createdAt: "2022-10-12T12:15:30.890Z",
     archived: false,
   },
