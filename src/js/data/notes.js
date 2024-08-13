@@ -86,7 +86,7 @@ const notesData = [
   {
     id: "notes-qwerty-8765-4321",
     title: "Financial Goals",
-    body: "1. Create a monthly budget\n2. Save 20% of income\n3. Invest in a retirement fund.",
+    body: "1. Create a monthly budget\n2. Save 20% of income\n3. Invest in a retirement fund",
     createdAt: "2022-10-12T12:15:30.890Z",
     archived: false,
   },
@@ -135,6 +135,19 @@ class Notes {
     notesData.push(newNote);
     console.log("New note added:", newNote);
     return newNote;
+  }
+
+  static saveNoteById({ id, title, body }) {
+    const index = notesData.findIndex((note) => note.id === id);
+    if (index === -1) {
+      console.error("Note not found!");
+      return;
+    }
+    console.log("Note updated:", notesData[index]);
+    notesData[index].title = title;
+    notesData[index].body = body;
+    console.log("Note updated:", notesData[index]);
+    return notesData[index];
   }
 }
 

@@ -26,11 +26,7 @@
 
     <main class="container">
       <div class="card-list">
-        <note-item>
-          <h2 slot="title">Judulnya</h2>
-          <span slot="createdAt">Tanggalnya</span>
-          <p slot="body">Isinya</p>
-        </note-item>
+        <note-item></note-item>
       </div>
     </main>
 
@@ -39,6 +35,31 @@
         <p>&copy; 2024 by @anandbersahaja</p>
       </article>
     </footer>
+
+    <!-- Button Open Modal Form -->
+    <add-note></add-note>
+
+    <!-- Modal Form -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-header" id="modalHeader">
+        <h2>Add Note</h2>
+        <span class="close" id="closeModalBtn">&times;</span>
+      </div>
+      <div class="modal-content">
+        <form action="" id="formNote">
+          <input type="hidden" name="id" id="id" />
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" required />
+          </div>
+          <div class="form-group">
+            <label for="bodyNote" style="margin-bottom: 4px">Body Note</label>
+            <textarea name="bodyNote" id="bodyNote" required></textarea>
+          </div>
+          <button type="submit" class="submit">Save</button>
+        </form>
+      </div>
+    </div>
 
     <!-- Template Navbar -->
     <template id="navbar">
@@ -92,32 +113,25 @@
           padding: 20px 15px 30px 15px;
           margin: 10px;
           font-size: 0.95rem;
+          text-overflow: clip;
           height: 100px;
           color: var(--secondary-color);
           position: relative;
           animation: fadeIn 1s ease-in-out;
           box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.1);
-        }
-        .edit-btn {
-          position: absolute;
-          top: 7px;
-          right: 7px;
-          color: var(--tertiary-color);
-          border: none;
-          padding: 2px 4px;
-          border-radius: 5px;
-          cursor: pointer;
-          width: 18px;
-          opacity: 0.7;
+          cursor: pointer !important;
+          transition: all 0.3s;
         }
         .card:hover {
+          box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.2);
           background: rgba(254, 253, 252, 1);
+          border-top: 4px solid var(--tertiary-color);
         }
-        .edit-btn:hover {
-          opacity: 1;
+        .card:active {
+          scale: 0.966;
         }
-        .edit-btn:active {
-          transform: scale(0.9);
+        .card:focus {
+          border-top: 4px solid var(--secondary-color);
         }
         .header-note {
           margin-bottom: 10px;
@@ -130,24 +144,24 @@
           font-size: 0.8rem;
           color: var(--secondary-color);
         }
+        .btn {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 3px;
+        }
+        .body-note {
+          font-size: 0.9rem;
+          color: var(--secondary-color);
+          overflow: auto;
+          height: 70px;
+        }
       </style>
 
       <article class="card">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-6 edit-btn"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-          />
-        </svg>
-
         <section class="header-note">
           <slot name="title" class="title">TITLE</slot>
           <slot name="createdAt" class="date">CREATED AT</slot>
@@ -159,44 +173,6 @@
     </template>
     <!-- END -->
 
-    <!-- Button Open Modal Form -->
-    <button class="add-btn" id="openModalBtn">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        class="size-6 w-26"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 4.5v15m7.5-7.5h-15"
-        />
-      </svg>
-    </button>
-
-    <!-- Modal Form -->
-    <div id="modal" class="modal hidden">
-      <div class="modal-header" id="modalHeader">
-        <h2>Add Note</h2>
-        <span class="close" id="closeModalBtn">&times;</span>
-      </div>
-      <div class="modal-content">
-        <form action="" id="formNote">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" required />
-          </div>
-
-          <div class="form-group">
-            <label for="bodyNote" style="margin-bottom: 4px">Body Note</label>
-            <textarea name="bodyNote" id="bodyNote" required></textarea>
-          </div>
-          <button type="submit" class="submit">Save</button>
-        </form>
-      </div>
-    </div>
-    <script src="./src/js/view/home.js" type="module"></script>
+    <script src="./src/app.js" type="module"></script>
   </body>
 </html>

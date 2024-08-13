@@ -17,6 +17,7 @@ button,
   padding: 0;
   box-sizing: border-box;
 }
+
 header {
   border-bottom: 2px solid var(--primary-color);
   position: sticky;
@@ -48,7 +49,7 @@ h1 > span {
 .card-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-
+  grid-template-rows: repeat(auto-fill, minmax(100px, 150px));
   gap: 15px;
 }
 
@@ -92,26 +93,31 @@ button {
   transition: all 0.3s;
   z-index: 1000;
 }
+
 .add-btn:hover {
   background: rgb(255, 130, 37);
   font-weight: 800;
   color: white;
 }
 .add-btn:active {
-  color: #ddd;
   scale: 0.9;
+  border: none;
+  outline: none;
 }
-
-.hidden {
-  opacity: 0;
+.add-btn:focus {
+  outline: none;
+  border: none;
 }
-
 .w-26 {
   width: 26px;
   stroke-width: 3;
 }
 
 /* MODAL */
+
+.hidden {
+  scale: 0;
+}
 .modal {
   border-top: 5px solid var(--tertiary-color);
   border-bottom: 5px solid transparent;
@@ -129,7 +135,6 @@ button {
   overflow: hidden;
   transition: all 0.3s;
 }
-
 .modal-header {
   color: var(--secondary-color);
   padding: 10px 15px;
@@ -138,7 +143,6 @@ button {
   display: flex;
   justify-content: space-between;
 }
-
 .modal-content {
   margin: 0;
   padding: 5px 5px 50px 5px;
