@@ -9,7 +9,7 @@ const home = () => {
 
   // Modal
   const modal = document.getElementById("modal");
-  // const openModalBtn = document.getElementById("openModalBtn");
+  const formTitle = document.getElementById("formTitle");
   const openModalBtn = document.querySelector("add-note");
   const closeModalBtn = document.getElementById("closeModalBtn");
 
@@ -40,6 +40,7 @@ const home = () => {
     noteItem.appendChild(bodyNote);
 
     noteItem.addEventListener("click", (e) => {
+      formTitle.textContent = "Edit Note";
       const id = e.target.closest("note-item").id;
       const note = Notes.getNoteById(id);
       const formNote = document.getElementById("formNote");
@@ -97,6 +98,7 @@ const home = () => {
   };
 
   openModalBtn.addEventListener("click", () => {
+    formTitle.textContent = "Add Note";
     resetForm();
     modal.classList.remove("hidden");
   });

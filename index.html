@@ -37,12 +37,12 @@
     </footer>
 
     <!-- Button Open Modal Form -->
-    <add-note></add-note>
+    <add-note diameter="50"></add-note>
 
     <!-- Modal Form -->
     <div id="modal" class="modal hidden">
       <div class="modal-header" id="modalHeader">
-        <h2>Add Note</h2>
+        <h2 id="formTitle">Add Note</h2>
         <span class="close" id="closeModalBtn">&times;</span>
       </div>
       <div class="modal-content">
@@ -50,11 +50,23 @@
           <input type="hidden" name="id" id="id" />
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" required />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required
+              minlength="3"
+              max="55"
+            />
           </div>
           <div class="form-group">
             <label for="bodyNote" style="margin-bottom: 4px">Body Note</label>
-            <textarea name="bodyNote" id="bodyNote" required></textarea>
+            <textarea
+              name="bodyNote"
+              id="bodyNote"
+              required
+              minlength="5"
+            ></textarea>
           </div>
           <button type="submit" class="submit">Save</button>
         </form>
