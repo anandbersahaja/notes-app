@@ -1,4 +1,6 @@
-import Notes from "../data/notes.js";
+import Notes from "../data/local/notes.js";
+
+import { resetForm, createNoteItem } from "../utils/utils.js";
 
 const home = () => {
   // Card List
@@ -13,62 +15,18 @@ const home = () => {
   const openModalBtn = document.querySelector("add-note");
   const closeModalBtn = document.getElementById("closeModalBtn");
 
+  // Get all notes
   const notes = Notes.getAll();
-
-  // Membuat note item
-  const createNoteItem = (note) => {
-    const noteItem = document.createElement("note-item");
-    noteItem.setAttribute("id", note.id);
-
-    const title = document.createElement("h2");
-    title.setAttribute("slot", "title");
-    title.textContent = note.title;
-    noteItem.appendChild(title);
-
-    const date = document.createElement("span");
-    date.setAttribute("slot", "createdAt");
-    date.setAttribute("class", "tertiary-text");
-    const dateF = new Date(note.createdAt);
-    date.textContent = dateF.toDateString();
-    noteItem.appendChild(date);
-
-    const bodyNote = document.createElement("div");
-    bodyNote.setAttribute("slot", "body");
-    const p = splitBodyNote(note);
-
-    bodyNote.appendChild(p);
-    noteItem.appendChild(bodyNote);
-
-    noteItem.addEventListener("click", (e) => {
-      formTitle.textContent = "Edit Note";
-      const id = e.target.closest("note-item").id;
-      const note = Notes.getNoteById(id);
-      const formNote = document.getElementById("formNote");
-
-      formNote.id.value = id;
-      formNote.title.value = note.title;
-      formNote.bodyNote.value = note.body;
-      modal.classList.remove("hidden");
-    });
-    cardList.appendChild(noteItem);
-  };
-
-  // Membuat paragraf dari body note
-  const splitBodyNote = ({ body }) => {
-    const p = document.createElement("p");
-    body.split("\n").forEach((item) => {
-      p.innerHTML += `${item}<br>`;
-    });
-    return p;
-  };
 
   // Render notes
   const renderNotes = () => {
     cardList.innerHTML = "";
-    notes.forEach((note) => createNoteItem(note));
+    notes.forEach((note) => {
+      cardList.appendChild(createNoteItem(note));
+    });
   };
 
-  renderNotes();
+  renderNotes(); // Render notes
 
   // EVENT LISTENER FORM
   formNote.addEventListener("submit", (e) => {
@@ -84,25 +42,21 @@ const home = () => {
       renderNotes();
     } else {
       const note = Notes.addNewNote({ ...newNote });
-      createNoteItem(note);
+      cardList.appendChild(createNoteItem(note));
     }
 
     formNote.reset();
     modal.classList.add("hidden");
   });
 
-  // EVENT LISTENER MODAL
-  const resetForm = () => {
-    formNote.id.value = "";
-    formNote.reset();
-  };
-
+  // EVENT LISTENER OPEN MODAL
   openModalBtn.addEventListener("click", () => {
     formTitle.textContent = "Add Note";
-    resetForm();
+    resetForm(formNote);
     modal.classList.remove("hidden");
   });
 
+  // EVENT LISTENER CLOSE MODAL
   closeModalBtn.addEventListener("click", () => {
     modal.classList.add("hidden");
   });
