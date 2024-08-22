@@ -1,11 +1,8 @@
-import Notes from "../data/local/notes.js";
+import { unArchivedNote, archivedNote, createNote } from "./note.js";
 
-import { resetForm, createNoteItem } from "../utils/utils.js";
+import { resetForm } from "../utils/utils.js";
 
-const home = () => {
-  // Card List
-  const cardList = document.querySelector(".card-list");
-
+const home = async () => {
   // Form
   const formNote = document.getElementById("formNote");
 
@@ -15,50 +12,39 @@ const home = () => {
   const openModalBtn = document.querySelector("add-note");
   const closeModalBtn = document.getElementById("closeModalBtn");
 
-  // Get all notes
-  const notes = Notes.getAll();
+  // Filter
+  const archivedFilter = document.getElementById("archivedFilter");
+  archivedFilter.addEventListener("click", archivedNote); // EVENT LISTENER FILTER
+  const unArchivedFilter = document.getElementById("unArchivedFilter");
+  unArchivedFilter.addEventListener("click", unArchivedNote); // EVENT LISTENER FILTER
 
-  // Render notes
-  const renderNotes = () => {
-    cardList.innerHTML = "";
-    notes.forEach((note) => {
-      cardList.appendChild(createNoteItem(note));
-    });
-  };
-
-  renderNotes(); // Render notes
+  unArchivedNote(); // run unArchivedNote script
 
   // EVENT LISTENER FORM
-  formNote.addEventListener("submit", (e) => {
+  formNote.addEventListener("submit", async (e) => {
     e.preventDefault();
     const newNote = {
-      id: e.target.id.value,
       title: e.target.title.value,
       body: e.target.bodyNote.value,
     };
 
-    if (newNote.id) {
-      Notes.saveNoteById({ ...newNote });
-      renderNotes();
-    } else {
-      const note = Notes.addNewNote({ ...newNote });
-      cardList.appendChild(createNoteItem(note));
-    }
+    // Menambahkan note baru ke API
+    createNote(newNote);
 
     formNote.reset();
-    modal.classList.add("hidden");
+    modal.classList.add("scale-0");
   });
 
   // EVENT LISTENER OPEN MODAL
   openModalBtn.addEventListener("click", () => {
     formTitle.textContent = "Add Note";
     resetForm(formNote);
-    modal.classList.remove("hidden");
+    modal.classList.remove("scale-0");
   });
 
   // EVENT LISTENER CLOSE MODAL
   closeModalBtn.addEventListener("click", () => {
-    modal.classList.add("hidden");
+    modal.classList.add("scale-0");
   });
 };
 

@@ -70,7 +70,6 @@ class AddNote extends HTMLElement {
     this._shadowRoot.innerHTML = "";
   }
   connectedCallback() {
-    this._shadowRoot.appendChild(this._style);
     this.render();
   }
 
