@@ -8,6 +8,10 @@
   color: var(--tertiary-color);
 }
 
+button:active {
+  scale: 0.9;
+}
+
 body,
 input,
 button,
@@ -40,6 +44,41 @@ h1 > span {
   text-decoration: underline;
   text-decoration-color: var(--secondary-color);
 }
+
+main.container {
+  min-height: 75vh;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.filter > button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  opacity: 0.7;
+}
+.filter > button:hover {
+  opacity: 1;
+}
+.bg-tertiary {
+  background: var(--tertiary-color);
+  color: white;
+}
+.bg-secondary {
+  background: var(--secondary-color);
+  color: white;
+}
+.bg-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
 .container {
   width: 100%;
   margin: 0 auto;
@@ -49,13 +88,11 @@ h1 > span {
 .card-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(100px, 150px));
   gap: 15px;
 }
 
 footer {
   background: white;
-  margin-top: 20px;
 }
 .footer-content {
   border-top: 2px solid var(--primary-color);
@@ -114,10 +151,14 @@ button {
 }
 
 /* MODAL */
-
 .hidden {
+  display: none;
+}
+
+.scale-0 {
   scale: 0;
 }
+
 .modal {
   border-top: 5px solid var(--tertiary-color);
   border-bottom: 5px solid transparent;
