@@ -19,7 +19,10 @@ button,
   font-family: "Roboto Slab", sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
+}
+body {
+  overflow-x: hidden;
 }
 
 header {
@@ -54,6 +57,7 @@ main.container {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-bottom: 20px;
 }
 .filter > button {
   padding: 5px 10px;
@@ -61,7 +65,7 @@ main.container {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .filter > button:hover {
   opacity: 1;
@@ -78,6 +82,18 @@ main.container {
   background: var(--primary-color);
   color: white;
 }
+.text-tertiary {
+  background: var(--tertiary-color);
+  color: white;
+}
+.text-secondary {
+  background: var(--secondary-color);
+  color: white;
+}
+.text-primary {
+  background: var(--primary-color);
+  color: white;
+}
 
 .container {
   width: 100%;
@@ -88,7 +104,7 @@ main.container {
 .card-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 15px;
+  gap: 20px;
 }
 
 footer {
@@ -267,4 +283,8 @@ textarea:focus {
 }
 .submit:focus {
   outline: none;
+}
+
+.active {
+  opacity: 1 !important;
 }

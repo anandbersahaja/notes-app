@@ -22,11 +22,15 @@
     <title>Document</title>
   </head>
   <body>
+    <toast-message class="message aerhgkajer"></toast-message>
+
+    <loading-content></loading-content>
+
     <nav-bar></nav-bar>
 
     <main class="container">
       <section class="filter">
-        <button type="button" class="bg-primary" id="unArchivedFilter">
+        <button type="button" class="bg-primary active" id="unArchivedFilter">
           Unarchived
         </button>
         <button type="button" class="bg-secondary" id="archivedFilter">
@@ -103,11 +107,7 @@
           text-decoration: underline;
           text-decoration-color: var(--secondary-color);
         }
-        .container {
-          width: 100%;
-          margin: 0 auto;
-          padding: 15px 20px;
-        }
+
         nav {
           padding: 1px 20px;
         }
@@ -131,14 +131,14 @@
           border-radius: 5px 5px 2px 2px;
           border-top: 4px solid var(--secondary-color);
           padding: 10px 25px 15px 25px;
-          margin: 10px;
           font-size: 0.95rem;
-          min-height: 100px;
+          height: 120px;
           color: var(--secondary-color);
           position: relative;
           box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.1);
           animation: fadeIn 1s ease-in-out;
           transition: all 0.3s;
+          cursor: pointer;
         }
         .card:hover {
           box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.2);
@@ -148,20 +148,29 @@
         .card:focus {
           border-top: 4px solid var(--secondary-color);
         }
+        .card:active {
+          scale: 0.98;
+        }
         .header-note {
           margin-bottom: 10px;
           margin-right: 32px;
           overflow: hidden;
-          display: flex;
+          display: inline-flex;
           flex-direction: column;
+          padding-bottom: 4px;
         }
         .body-note {
           font-size: 0.9rem;
           color: var(--secondary-color);
           overflow: hidden;
+          max-height: 4.4rem;
+          min-height: 1.2rem;
         }
         .title {
           font-size: 1.1rem;
+          max-height: 1.1rem;
+          display: block;
+          overflow: hidden;
           font-weight: 650;
         }
         .date {
@@ -170,7 +179,7 @@
         }
         .action {
           position: absolute;
-          top: 8px;
+          top: 10px;
           right: 10px;
           display: flex;
           justify-content: right;
@@ -187,42 +196,11 @@
           transition: all 0.3s;
           padding-inline: 2px;
         }
-        .btn-delete {
-          color: var(--primary-color);
-        }
-        .btn-archive {
-          color: var(--secaondary-color);
-        }
-        button:hover {
-          opacity: 1;
-        }
-        button:active {
-          transform: scale(0.9);
-        }
-        .icon {
-          width: 20px;
-          stroke-width: 2;
-        }
       </style>
 
       <article class="card">
         <div class="action">
-          <button class="btn-archive">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="icon"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
-              />
-            </svg>
-          </button>
+          <slot name="archive" class="archive"></slot>
           <slot name="delete" class="delete"></slot>
         </div>
         <section class="header-note">

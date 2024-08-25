@@ -4,38 +4,50 @@ const contentSection = document.querySelector("section.content"); // Main conten
 const cardList = document.createElement("div"); // Card list
 cardList.classList.add("card-list");
 const notFound = document.createElement("not-found"); // Not found component
+const loading = document.querySelector("loading-content");
+const toastMessage = document.querySelector("toast-message");
 
-export const unArchivedNote = async () => {
+export const unArchivedNote = async (e) => {
   try {
+    showLoading();
     const notes = await NotesApi.getNotes();
-    render(notes.data);
+    render(notes.data, false);
   } catch (error) {
     console.error(error);
     render([]);
+  } finally {
+    hideLoading();
   }
 };
 
 export const archivedNote = async () => {
   try {
+    showLoading();
     const notes = await NotesApi.getArchivedNotes();
-    render(notes.data);
+    render(notes.data, true);
   } catch (error) {
     console.error(error);
     render([]);
+  } finally {
+    hideLoading();
   }
 };
 
 export const createNote = async (note) => {
   try {
+    showLoading();
     const res = await NotesApi.createNewNote(note);
     await res.json();
     unArchivedNote();
   } catch (error) {
     console.error(error);
+  } finally {
+    hideLoading();
+    toastMessage.appendMessage("New Note created successfully");
   }
 };
 
-const render = (notes) => {
+const render = (notes, isArchived = false) => {
   contentSection.innerHTML = "";
 
   if (notes.length <= 0) {
@@ -45,32 +57,81 @@ const render = (notes) => {
   contentSection.appendChild(cardList);
   cardList.innerHTML = "";
   notes.forEach((note) => {
-    cardList.appendChild(createNoteItem(note));
+    cardList.appendChild(createNoteItem(note, isArchived));
   });
 };
 
 const deleteNote = async (id) => {
   try {
+    showLoading();
     await NotesApi.deleteNote(id);
     unArchivedNote();
   } catch (error) {
     console.error(error);
+  } finally {
+    hideLoading();
+    toastMessage.appendMessage("Note deleted successfully");
   }
 };
 
-export const createNoteItem = (note) => {
+const archiveNote = async (id) => {
+  try {
+    showLoading();
+    await NotesApi.archiveNote(id);
+    unArchivedNote();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    hideLoading();
+    toastMessage.appendMessage("Note archived successfully");
+  }
+};
+
+const unarchiveNote = async (id) => {
+  try {
+    showLoading();
+    await NotesApi.unarchiveNote(id);
+    archivedNote();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    hideLoading();
+    toastMessage.appendMessage("Unarchive note successfully");
+  }
+};
+
+export const createNoteItem = (note, isArchived = false) => {
   // Membuat element note-item
   const noteItem = document.createElement("note-item");
   noteItem.setAttribute("id", note.id);
 
-  const btnDelete = document.createElement("btn-delete");
-  btnDelete.setAttribute("slot", "delete");
-  btnDelete.setId(note.id);
-  noteItem.appendChild(btnDelete);
+  // Jika tidak diarsip tidak diberi tombol delete
+  if (!isArchived) {
+    const btnDelete = document.createElement("btn-delete");
+    btnDelete.setAttribute("slot", "delete");
+    btnDelete.setId(note.id);
+    noteItem.appendChild(btnDelete);
 
-  btnDelete.addEventListener("click", (e) => {
-    const id = e.target.closest("btn-delete").id;
-    deleteNote(id);
+    btnDelete.addEventListener("click", (e) => {
+      const id = e.target.closest("btn-delete").id;
+      confirm("Are you sure want to delete this note?") && deleteNote(id);
+    });
+  }
+
+  const btnArchive = document.createElement("btn-archive");
+  btnArchive.setAttribute("slot", "archive");
+  btnArchive.setId(note.id);
+  btnArchive.setIsArchived(isArchived);
+  noteItem.appendChild(btnArchive);
+
+  btnArchive.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const id = e.target.closest("btn-archive").id;
+    if (isArchived) {
+      unarchiveNote(id);
+    } else {
+      archiveNote(id);
+    }
   });
 
   // Membuat element title note
@@ -109,4 +170,11 @@ const splitBodyNote = ({ body }) => {
     p.innerHTML += `${item}<br>`;
   });
   return p;
+};
+
+const showLoading = () => {
+  loading.setVisible(true);
+};
+const hideLoading = () => {
+  loading.setVisible(false);
 };

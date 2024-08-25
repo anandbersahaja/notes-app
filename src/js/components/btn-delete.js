@@ -1,7 +1,6 @@
 class BtnDelete extends HTMLElement {
   constructor() {
     super();
-
     this._style = document.createElement("style");
   }
 
@@ -15,9 +14,8 @@ class BtnDelete extends HTMLElement {
 
   _updateStyle() {
     this._style.textContent = `
-      .icon {
-          width: 20px;
-          stroke-width: 2;
+      .btn-delete:hover {
+          opacity: 1;
         }
       .btn-delete {
         color: #b43f3f;
@@ -26,8 +24,11 @@ class BtnDelete extends HTMLElement {
         border: none;
         opacity: 0.6;
       }
-      .btn-delete:hover {
-        opacity: 1;
+      .primary::after {
+        border-color: #b43f3f transparent transparent transparent !important;
+      }
+      .primary{
+        background-color: #b43f3f !important;
       }
         `;
   }
@@ -41,7 +42,8 @@ class BtnDelete extends HTMLElement {
 
     this.appendChild(this._style);
     this.innerHTML += `
-      <button class="btn-delete">
+      <div class="tooltip">
+        <button class="btn-delete tooltip-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -57,6 +59,8 @@ class BtnDelete extends HTMLElement {
           />
         </svg>
       </button>
+      <span class="tooltip-text primary">Delete</span>
+      </div>
     `;
   }
 }
