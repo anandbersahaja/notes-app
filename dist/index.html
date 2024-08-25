@@ -1,0 +1,96 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@heroicons/vue@v2.0.16/dist/heroicons.css"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet"/><title>Note App</title><script defer="defer" src="bundle.js"></script></head><body><modal-note></modal-note><toast-message class="message"></toast-message><loading-content></loading-content><nav-bar></nav-bar><main class="container"><section class="filter"><button type="button" class="bg-primary active" id="unArchivedFilter">Unarchived</button> <button type="button" class="bg-secondary" id="archivedFilter">Archived</button></section><section class="content"></section></main><footer><article class="footer-content"><p>&copy; 2024 by @anandbersahaja</p></article></footer><add-note diameter="50"></add-note><div id="modal" class="modal scale-0"><div class="modal-header" id="modalHeader"><h2 id="formTitle">Add Note</h2><span class="close" id="closeModalBtn">&times;</span></div><div class="modal-content"><form action="" id="formNote"><input type="hidden" name="id" id="id"/><div class="form-group"><label for="title">Title</label> <input name="title" id="title" required minlength="3" max="55"/></div><div class="form-group"><label for="bodyNote" style="margin-bottom: 4px">Body Note</label> <textarea name="bodyNote" id="bodyNote" required minlength="5"></textarea></div><button type="submit" class="submit">Save</button></form></div></div><template id="navbar"><style>header {
+          border-bottom: 2px solid var(--primary-color);
+          position: sticky;
+          top: 0;
+          border-radius: 0 0 10px 10px;
+          background: white;
+          z-index: 100;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          box-sizing: border-box;
+        }
+        h1 {
+          color: var(--secondary-color);
+          text-align: center;
+          font-size: 1.7rem;
+          font-weight: 700;
+        }
+        h1 > span {
+          color: var(--primary-color);
+          text-decoration: underline;
+          text-decoration-color: var(--secondary-color);
+        }
+
+        nav {
+          padding: 1px 20px;
+        }</style><header><nav><h1>My<span>Notes</span></h1></nav></header></template><template id="noteItem"><style>.card {
+          background: white;
+          display: flex;
+          flex-direction: column;
+          border-radius: 5px 5px 2px 2px;
+          border-top: 4px solid var(--secondary-color);
+          padding: 10px 25px 15px 25px;
+          font-size: 0.95rem;
+          height: 120px;
+          color: var(--secondary-color);
+          position: relative;
+          box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.1);
+          animation: fadeIn 1s ease-in-out;
+          transition: all 0.3s;
+          cursor: pointer;
+        }
+        .card:hover {
+          box-shadow: 5px 5px 8px 2px rgba(0, 0, 0, 0.2);
+          background: rgba(254, 253, 252, 1);
+          border-top: 4px solid var(--tertiary-color);
+        }
+        .card:focus {
+          border-top: 4px solid var(--secondary-color);
+        }
+        .card:active {
+          scale: 0.98;
+        }
+        .header-note {
+          margin-bottom: 10px;
+          margin-right: 32px;
+          overflow: hidden;
+          display: inline-flex;
+          flex-direction: column;
+          padding-bottom: 4px;
+        }
+        .body-note {
+          font-size: 0.9rem;
+          color: var(--secondary-color);
+          overflow: hidden;
+          max-height: 4.4rem;
+          min-height: 1.2rem;
+        }
+        .title {
+          font-size: 1.1rem;
+          max-height: 1.1rem;
+          display: block;
+          overflow: hidden;
+          font-weight: 650;
+        }
+        .date {
+          font-size: 0.75rem;
+          color: var(--secondary-color);
+        }
+        .action {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          display: flex;
+          justify-content: right;
+          align-items: center;
+          gap: 2px;
+        }
+        .action > button {
+          background: none;
+          border: none;
+          border-radius: 4px;
+          font-size: 1.2rem;
+          cursor: pointer;
+          opacity: 0.7;
+          transition: all 0.3s;
+          padding-inline: 2px;
+        }</style><article class="card"><div class="action"><slot name="archive" class="archive"></slot><slot name="delete" class="delete"></slot></div><section class="header-note"><slot name="title" class="title">TITLE</slot><slot name="createdAt" class="date">CREATED AT</slot></section><section class="body-note"><slot name="body">BODY NOTE</slot></section></article></template></body></html>

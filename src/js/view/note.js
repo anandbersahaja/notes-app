@@ -1,5 +1,6 @@
 import { NotesApi } from "../data/remote/notes-api.js";
 
+const modal = document.querySelector("modal-note");
 const contentSection = document.querySelector("section.content"); // Main contentSection
 const cardList = document.createElement("div"); // Card list
 cardList.classList.add("card-list");
@@ -104,6 +105,10 @@ export const createNoteItem = (note, isArchived = false) => {
   // Membuat element note-item
   const noteItem = document.createElement("note-item");
   noteItem.setAttribute("id", note.id);
+  noteItem.addEventListener("click", () => {
+    modal.setNoteDetail(note);
+    modal.display = true;
+  });
 
   // Jika tidak diarsip tidak diberi tombol delete
   if (!isArchived) {
