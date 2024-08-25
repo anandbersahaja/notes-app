@@ -6,3 +6,4 @@ import "./btn-delete.js";
 import "./btn-archive.js";
 import "./loading-content.js";
 import "./toast-message.js";
+import "./modal.js";

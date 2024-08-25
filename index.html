@@ -3,14 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/css/reset.css" />
 
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@heroicons/vue@v2.0.16/dist/heroicons.css"
     />
-
-    <!-- My font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,11 +15,11 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="./src/css/style.css" />
-    <title>Document</title>
+    <title>Note App</title>
   </head>
   <body>
-    <toast-message class="message aerhgkajer"></toast-message>
+    <modal-note></modal-note>
+    <toast-message class="message"></toast-message>
 
     <loading-content></loading-content>
 
@@ -213,7 +210,5 @@
       </article>
     </template>
     <!-- END -->
-
-    <script src="./src/app.js" type="module"></script>
   </body>
 </html>
