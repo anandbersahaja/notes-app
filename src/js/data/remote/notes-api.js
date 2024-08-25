@@ -38,7 +38,6 @@ export class NotesApi {
    */
   static async getArchivedNotes() {
     try {
-      console.log("fetching archived notes");
       const res = await fetch(`${BASE_URL}/notes/archived`);
       return res.json();
     } catch (error) {

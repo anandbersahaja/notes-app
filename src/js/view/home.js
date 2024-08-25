@@ -15,8 +15,19 @@ const home = async () => {
   // Filter
   const archivedFilter = document.getElementById("archivedFilter");
   archivedFilter.addEventListener("click", archivedNote); // EVENT LISTENER FILTER
+  archivedFilter.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.target.classList.add("active");
+    unArchivedFilter.classList.remove("active");
+  });
+
   const unArchivedFilter = document.getElementById("unArchivedFilter");
   unArchivedFilter.addEventListener("click", unArchivedNote); // EVENT LISTENER FILTER
+  unArchivedFilter.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.target.classList.add("active");
+    archivedFilter.classList.remove("active");
+  });
 
   unArchivedNote(); // run unArchivedNote script
 
@@ -30,6 +41,8 @@ const home = async () => {
 
     // Menambahkan note baru ke API
     createNote(newNote);
+    unArchivedFilter.classList.add("active");
+    archivedFilter.classList.remove("active");
 
     formNote.reset();
     modal.classList.add("scale-0");

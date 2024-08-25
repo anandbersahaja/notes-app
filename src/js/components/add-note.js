@@ -32,7 +32,7 @@ class AddNote extends HTMLElement {
       cursor: pointer;
       font-weight: 500;
       transition: all 0.3s;
-      z-index: 1000;
+      z-index: 101;
     }
       .add-btn:hover {
         background: rgb(255, 130, 37);
