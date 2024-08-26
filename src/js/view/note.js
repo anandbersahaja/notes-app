@@ -118,6 +118,7 @@ export const createNoteItem = (note, isArchived = false) => {
     noteItem.appendChild(btnDelete);
 
     btnDelete.addEventListener("click", (e) => {
+      e.stopPropagation();
       const id = e.target.closest("btn-delete").id;
       confirm("Are you sure want to delete this note?") && deleteNote(id);
     });
